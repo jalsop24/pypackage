@@ -1,11 +1,17 @@
 
 import requests
 
-TIME_URL = "http://worldtimeapi.org/api/timezone/Europe/London"
+TIME_URL = "https://timeapi.io/api/Time/current/zone?timeZone=Europe/London"
 
 def welcome():
     print("Hello World!")
     
-    r = requests.get(TIME_URL)
+    r = requests.get(TIME_URL, headers={
+        "content-type": "application/json",
+        "accept": "application/json"
+        })
 
-    print(r)
+    if r.status_code == 200:
+        print(r.json()["time"])
+    else:
+        print("Could not determine time")
